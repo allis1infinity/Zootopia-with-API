@@ -1,18 +1,4 @@
-import requests
-
-
-def get_animal_info_by_name(animal_name):
-    """
-    Makes an API call to get information about an animal.
-    Returns a list of animal data in JSON format or None in case of an error
-    """
-    api_url = f'https://api.api-ninjas.com/v1/animals?name={animal_name}'
-    response = requests.get(api_url, headers={'X-Api-Key': '7Hm0KVhv6IXpNIOD1KvPQw==QpGHB1IRQiRAgeCE'})
-    if response.status_code == requests.codes.ok:
-        return response.json()
-    else:
-        print("Error:", response.status_code, response.text)
-        return None
+import data_fetcher
 
 
 def serialize_animal(animal):
@@ -54,11 +40,12 @@ def display_animals_info(animal_info):
 
 def main():
     """
-    Main function to get animal data from the user,
-    generate an HTML page, and save it to a file.
+    Main function get name from the user, fetches the
+    data from the data fetcher, generate an HTML page,
+    and save it to a file.
     """
     user_animal = input("Enter the name of the animal: ")
-    animal_data = get_animal_info_by_name(user_animal)
+    animal_data = data_fetcher.fetch_data(user_animal)
 
     # Read the content of the animals_template.html
     with open("animals_template.html", "r") as file:
