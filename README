@@ -1,0 +1,19 @@
+Animal Info Generator
+This project creates an HTML page with information about a specific animal using a public API.
+
+Setup
+Clone the repository:
+git clone https://github.com/new
+
+Install dependencies:
+pip install -r requirements.txt
+
+Add your API key:
+Create a .env file and add
+API_KEY="your_api_key"
+
+Usage
+Run:
+python animals_web_generator.py
+Enter the animal name when prompted.
+The program will create animals.html in the same folder.
