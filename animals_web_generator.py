@@ -42,6 +42,10 @@ def serialize_animal(animal):
 
 
 def display_animals_info(animal_info):
+    """Receives a list of dictionaries with animal data and
+    returns an HTML string containing formatted information
+    for all animals.
+    """
     output = ""
     for animal in animal_info:
         output += serialize_animal(animal)
@@ -49,6 +53,10 @@ def display_animals_info(animal_info):
 
 
 def main():
+    """
+    Main function to get animal data from the user,
+    generate an HTML page, and save it to a file.
+    """
     user_animal = input("Enter the name of the animal: ")
     animal_data = get_animal_info_by_name(user_animal)
 
@@ -56,7 +64,12 @@ def main():
     with open("animals_template.html", "r") as file:
         read_html = file.read()
 
-    animals_short_info = display_animals_info(animal_data)
+    if animal_data:
+        animals_short_info = display_animals_info(animal_data)
+    else:
+        # Create an error message
+        error_message = f"<h2>The animal {user_animal} doesn't exist.</h2>"
+        animals_short_info = error_message
 
     # Replace text in html with extracted info
     main_html = read_html.replace("__REPLACE_ANIMALS_INFO__", animals_short_info)
