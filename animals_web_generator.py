@@ -49,8 +49,8 @@ def display_animals_info(animal_info):
 
 
 def main():
-    animal_name = "cheetah"
-    animal_data = get_animal_info_by_name(animal_name)
+    user_animal = input("Enter the name of the animal: ")
+    animal_data = get_animal_info_by_name(user_animal)
 
     # Read the content of the animals_template.html
     with open("animals_template.html", "r") as file:
