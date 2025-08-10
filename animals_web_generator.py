@@ -1,15 +1,23 @@
-import json
+import requests
 
 
-def load_data(file_path):
-    """Loads a JSON file"""
-    with open(file_path, "r") as handle:
-        return json.load(handle)
+def get_animal_info_by_name(animal_name):
+    """
+    Makes an API call to get information about an animal.
+    Returns a list of animal data in JSON format or None in case of an error
+    """
+    api_url = f'https://api.api-ninjas.com/v1/animals?name={animal_name}'
+    response = requests.get(api_url, headers={'X-Api-Key': '7Hm0KVhv6IXpNIOD1KvPQw==QpGHB1IRQiRAgeCE'})
+    if response.status_code == requests.codes.ok:
+        return response.json()
+    else:
+        print("Error:", response.status_code, response.text)
+        return None
 
 
 def serialize_animal(animal):
     """
-    Displays selected info about  animal
+    Formats the animal data into an HTML string
     """
     # define an empty string
     output = ""
@@ -41,20 +49,20 @@ def display_animals_info(animal_info):
 
 
 def main():
-    # Load animal data from the JSON file
-    animal_date = load_data("animals_data.json")
+    animal_name = "cheetah"
+    animal_data = get_animal_info_by_name(animal_name)
 
     # Read the content of the animals_template.html
     with open("animals_template.html", "r") as file:
         read_html = file.read()
 
-    animals_short_info = display_animals_info(animal_date)
+    animals_short_info = display_animals_info(animal_data)
 
     # Replace text in html with extracted info
     main_html = read_html.replace("__REPLACE_ANIMALS_INFO__", animals_short_info)
 
-    # Write the new HTML content to a new file, main.html
-    with open("main.html", "w") as final_file:
+    # Write the new HTML content to a new file, animals.html
+    with open("animals.html", "w") as final_file:
         final_file.write(main_html)
 
 
